@@ -44,7 +44,7 @@ RUN mkdir -p .tmp .cache public/uploads && \
 
 EXPOSE 1337
 
-HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+HEALTHCHECK --interval=10s --timeout=10s --start-period=30s --retries=5 \
     CMD wget --quiet --tries=1 --spider http://localhost:1337/_health || exit 1
 
 ENTRYPOINT ["docker-entrypoint.sh"]
