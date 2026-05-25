@@ -23,7 +23,7 @@ services:
     environment:
       HOST: "0.0.0.0"
       PORT: "1337"
-      NODE_ENV: production
+      NODE_ENV: development
       PUBLIC_URL: "http://${APP_DOMAIN}:1337"
       STRAPI_TELEMETRY_DISABLED: "true"
 

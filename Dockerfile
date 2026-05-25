@@ -6,15 +6,11 @@ FROM node:22-alpine AS build
 # vips-dev is required by sharp (image processing)
 RUN apk update && apk add --no-cache vips-dev
 
-WORKDIR /opt/
+WORKDIR /opt/app
 
 COPY app/package.json ./
 
 RUN npm config set fetch-retry-maxtimeout 600000 -g && npm install
-
-ENV PATH=/opt/node_modules/.bin:$PATH
-
-WORKDIR /opt/app
 
 COPY app/ .
 
@@ -32,13 +28,6 @@ FROM node:22-alpine AS runtime
 RUN apk update && apk upgrade --no-cache && apk add --no-cache vips-dev su-exec
 
 ENV NODE_ENV=production
-
-WORKDIR /opt/
-
-COPY --from=build /opt/node_modules ./node_modules
-COPY --from=build /opt/package.json ./
-
-ENV PATH=/opt/node_modules/.bin:$PATH
 
 WORKDIR /opt/app
 
