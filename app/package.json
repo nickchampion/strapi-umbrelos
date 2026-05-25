@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "develop": "strapi develop",
+    "develop": "strapi develop --no-watch-admin",
     "start": "strapi start",
     "build": "strapi build",
     "strapi": "strapi"
