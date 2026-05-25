@@ -8,11 +8,11 @@ RUN apk update && apk add --no-cache vips-dev
 
 WORKDIR /opt/app
 
-COPY app/package.json ./
+COPY strapi/package.json ./
 
 RUN npm config set fetch-retry-maxtimeout 600000 -g && npm install
 
-COPY app/ .
+COPY strapi/ .
 
 ENV NODE_ENV=production
 
@@ -36,7 +36,7 @@ COPY --from=build /opt/app ./
 # Save default src/ so the entrypoint can populate a fresh volume on first run
 RUN cp -rp src /opt/app-src-default
 
-COPY app/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+COPY strapi/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 RUN mkdir -p .tmp .cache public/uploads && \

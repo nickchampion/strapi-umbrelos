@@ -1,6 +1,13 @@
 **/node_modules/
-.tmp/
-.cache/
+**/.cache/
+**/.tmp/
+**/.strapi/
 .git/
-build/
 .env
+
+# Local SQLite data — never in the image
+strapi/data/
+strapi/database/
+
+# Locally-built dist — let Docker build it fresh from source
+strapi/dist/
