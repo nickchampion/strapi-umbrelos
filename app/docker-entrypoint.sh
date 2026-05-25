@@ -13,4 +13,15 @@ if [ ! -f /opt/app/src/index.ts ]; then
     chown -R node:node /opt/app/src
 fi
 
+# Ensure the Vite config exists — needed for allowedHosts on upgrades
+if [ ! -f /opt/app/src/admin/vite.config.ts ]; then
+    mkdir -p /opt/app/src/admin
+    cp /opt/app-src-default/admin/vite.config.ts /opt/app/src/admin/vite.config.ts
+    chown -R node:node /opt/app/src/admin
+fi
+
+# Clear TypeScript compilation cache so Strapi recompiles cleanly on every start.
+# Without this, stale cache from a previous run causes crashes after content type changes.
+rm -rf /opt/app/.cache/*
+
 exec su-exec node "$@"
