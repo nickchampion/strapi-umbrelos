@@ -1,0 +1,13 @@
+services:
+  # app_proxy is provided by UmbrelOS in production — disable it locally
+  app_proxy:
+    profiles:
+      - disabled
+
+  # Expose Strapi directly since there's no proxy routing locally
+  web:
+    ports:
+      - "1337:1337"
+    environment:
+      # Docker Compose routes by service name; UmbrelOS uses strapi_db_1
+      DATABASE_HOST: db
