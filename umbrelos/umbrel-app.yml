@@ -3,7 +3,7 @@ id: strapi
 category: developer
 name: Strapi
 version: "5.0.0"
-tagline: Open-source headless CMS to build powerful APIs
+tagline: The Open-Source Headless CMS for AI powered Websites and Apps
 description: >-
   Strapi is the leading open-source headless CMS, giving you full control
   over your content and APIs without locking you into any frontend framework.
@@ -30,10 +30,10 @@ repo: https://github.com/strapi/strapi
 support: https://forum.strapi.io
 port: 1337
 gallery:
-  - 1.jpg
-  - 2.jpg
-  - 3.jpg
-path: ""
+  - 1.png
+  - 2.png
+  - 3.png
+path: "/admin"
 defaultUsername: ""
 defaultPassword: ""
 releaseNotes: ""

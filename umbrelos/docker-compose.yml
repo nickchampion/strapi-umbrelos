@@ -14,17 +14,18 @@ services:
     # to pin the image for reproducible installs.
     image: ghcr.io/nickchampion/strapi-umbrelos:v1.0.2@sha256:6601278cca24ba6c9fddec88815123d99916a8ef0fd7abe6fc7a3b809f7fad38
     restart: on-failure
-    user: "1000:1000"
     depends_on:
       db:
         condition: service_healthy
     volumes:
       - ${APP_DATA_DIR}/data/uploads:/opt/app/public/uploads
+      - ${APP_DATA_DIR}/src:/opt/app/src
     environment:
       HOST: "0.0.0.0"
       PORT: "1337"
       NODE_ENV: production
-      PUBLIC_URL: "http://${APP_DOMAIN}"
+      PUBLIC_URL: "http://${APP_DOMAIN}:1337"
+      STRAPI_TELEMETRY_DISABLED: "true"
 
       # Database
       DATABASE_CLIENT: postgres
@@ -49,7 +50,6 @@ services:
     # Get the current digest: docker pull postgres:16-alpine && docker inspect postgres:16-alpine --format='{{index .RepoDigests 0}}'
     image: postgres:16-alpine
     restart: on-failure
-    user: "1000:1000"
     volumes:
       - ${APP_DATA_DIR}/data/db:/var/lib/postgresql/data
     environment:
