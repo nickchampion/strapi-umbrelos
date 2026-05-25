@@ -12,7 +12,7 @@ services:
     # After your first `docker buildx build` + push, replace the tag and add:
     #   @sha256:<digest>
     # to pin the image for reproducible installs.
-    image: ghcr.io/nickchampion/strapi-umbrelos:v1.0.6@sha256:2da10fa572d807d42338d8fc6eb424ff481afc18d599a0b445d7de6eea2392a6
+    image: ghcr.io/nickchampion/strapi-umbrelos:v1.0.7@sha256:a4661eeb87560ac2fd35f97963b49bc46ff8a7492beb0be7fb224449a207e5ae
     restart: on-failure
     depends_on:
       db:
