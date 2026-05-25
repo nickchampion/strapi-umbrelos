@@ -1,0 +1,10 @@
+{
+  "name": "strapi-umbrelos",
+  "private": true,
+  "scripts": {
+    "dev": "./scripts/dev.sh",
+    "dev:fresh": "./scripts/dev.sh --no-build",
+    "dev:down": "./scripts/dev.sh down",
+    "release": "./scripts/release.sh"
+  }
+}
