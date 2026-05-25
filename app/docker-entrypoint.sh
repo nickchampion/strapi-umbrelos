@@ -24,4 +24,18 @@ fi
 # Without this, stale cache from a previous run causes crashes after content type changes.
 rm -rf /opt/app/.cache/*
 
+# Copy schema.json files from src/api/ into dist/src/api/ before Strapi starts.
+# The TypeScript compiler only emits .ts → .js; it never copies .json files.
+# Strapi loads content types from dist/src/api/ (per tsconfig outDir+rootDir),
+# so without this step strapi.contentType(uid) returns undefined on every restart
+# and crashes with "Cannot read properties of undefined (reading 'kind')".
+if [ -d /opt/app/src/api ]; then
+    find /opt/app/src/api -name 'schema.json' 2>/dev/null | while IFS= read -r f; do
+        dest="/opt/app/dist${f#/opt/app}"
+        mkdir -p "$(dirname "$dest")"
+        cp -f "$f" "$dest"
+    done
+    chown -R node:node /opt/app/dist/src/api 2>/dev/null || true
+fi
+
 exec su-exec node "$@"
