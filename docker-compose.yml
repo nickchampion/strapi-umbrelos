@@ -1,0 +1,64 @@
+version: "3.7"
+
+services:
+  app_proxy:
+    environment:
+      APP_HOST: strapi_web_1
+      APP_PORT: 1337
+      # Strapi manages its own admin authentication — no Umbrel proxy auth needed
+      PROXY_AUTH_ADD: "false"
+
+  web:
+    # After your first `docker buildx build` + push, replace the tag and add:
+    #   @sha256:<digest>
+    # to pin the image for reproducible installs.
+    image: ghcr.io/nickchampion/strapi-umbrelos:latest
+    restart: on-failure
+    user: "1000:1000"
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ${APP_DATA_DIR}/data/uploads:/opt/app/public/uploads
+    environment:
+      HOST: "0.0.0.0"
+      PORT: "1337"
+      NODE_ENV: production
+      PUBLIC_URL: "http://${APP_DOMAIN}"
+
+      # Database
+      DATABASE_CLIENT: postgres
+      DATABASE_HOST: strapi_db_1
+      DATABASE_PORT: "5432"
+      DATABASE_NAME: strapi
+      DATABASE_USERNAME: strapi
+      DATABASE_PASSWORD: ${APP_STRAPI_DB_PASSWORD}
+      DATABASE_SSL: "false"
+      DATABASE_SCHEMA: public
+
+      # Security secrets (derived deterministically from APP_SEED via exports.sh)
+      APP_KEYS: ${APP_STRAPI_APP_KEYS}
+      API_TOKEN_SALT: ${APP_STRAPI_API_TOKEN_SALT}
+      ADMIN_JWT_SECRET: ${APP_STRAPI_ADMIN_JWT_SECRET}
+      JWT_SECRET: ${APP_STRAPI_JWT_SECRET}
+      TRANSFER_TOKEN_SALT: ${APP_STRAPI_TRANSFER_TOKEN_SALT}
+      ENCRYPTION_KEY: ${APP_STRAPI_ENCRYPTION_KEY}
+
+  db:
+    # Pin to SHA256 digest before app store submission.
+    # Get the current digest: docker pull postgres:16-alpine && docker inspect postgres:16-alpine --format='{{index .RepoDigests 0}}'
+    image: postgres:16-alpine
+    restart: on-failure
+    user: "1000:1000"
+    volumes:
+      - ${APP_DATA_DIR}/data/db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: strapi
+      POSTGRES_PASSWORD: ${APP_STRAPI_DB_PASSWORD}
+      POSTGRES_DB: strapi
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U strapi -d strapi"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s

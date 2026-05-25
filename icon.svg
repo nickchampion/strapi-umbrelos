@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <!-- Background -->
+  <rect width="256" height="256" rx="0" fill="#4945FF"/>
+
+  <!-- Strapi "S" mark — simplified geometric logo shape -->
+  <!-- Top-right quadrant block -->
+  <rect x="104" y="48" width="104" height="52" rx="6" fill="white"/>
+  <!-- Middle block -->
+  <rect x="48" y="102" width="104" height="52" rx="6" fill="white" opacity="0.85"/>
+  <!-- Bottom-left quadrant block -->
+  <rect x="48" y="156" width="104" height="52" rx="6" fill="white"/>
+</svg>

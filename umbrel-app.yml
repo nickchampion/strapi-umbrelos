@@ -1,0 +1,40 @@
+manifestVersion: 1
+id: strapi
+category: developer
+name: Strapi
+version: "5.0.0"
+tagline: Open-source headless CMS to build powerful APIs
+description: >-
+  Strapi is the leading open-source headless CMS, giving you full control
+  over your content and APIs without locking you into any frontend framework.
+  Build blogs, e-commerce backends, mobile app APIs, or enterprise content
+  platforms — all from a single self-hosted instance.
+
+  The intuitive admin panel lets editors create and manage content types,
+  media, and permissions without writing code. Developers get auto-generated
+  REST and GraphQL APIs, role-based access control, webhooks, and full
+  TypeScript support out of the box.
+
+  Strapi v5 introduces the Document Service API for improved content
+  management, a redesigned admin interface, enhanced plugin architecture,
+  and better performance across the board.
+
+  ⚠️ On first launch, visit the admin panel to create your administrator
+  account. Your Strapi API will be available at http://umbrel.local:1337/api
+  and the admin panel at http://umbrel.local:1337/admin.
+developer: Strapi Solutions SAS
+website: https://strapi.io
+submitter: Nick Champion
+submission: ""
+repo: https://github.com/strapi/strapi
+support: https://forum.strapi.io
+port: 1337
+gallery:
+  - 1.jpg
+  - 2.jpg
+  - 3.jpg
+path: ""
+defaultUsername: ""
+defaultPassword: ""
+releaseNotes: ""
+dependencies: []
