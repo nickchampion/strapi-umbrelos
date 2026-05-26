@@ -1,8 +1,5 @@
 services:
   app_proxy:
-    depends_on:
-      web:
-        condition: service_healthy
     environment:
       APP_HOST: strapi_web_1
       APP_PORT: 1337

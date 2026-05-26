@@ -25,6 +25,9 @@ docker ps -a | grep strapi                     # filter by app
 docker inspect strapi_web_1                    # full container config
 docker stats                                   # live CPU/mem
 
+sudo docker rmi -f $(sudo docker images | grep strapi | awk '{print $3}')
+
+
 # ── Docker — logs ─────────────────────────────────────────────────────────────
 docker logs strapi_web_1 --tail 100
 docker logs strapi_web_1 --tail 100 -f         # follow live
@@ -62,9 +65,27 @@ journalctl -u umbreld -f
 journalctl -u umbreld -n 500 --no-pager | grep -i "strapi\|error\|fail"
 docker events --since 10m --filter name=strapi
 
+# -- App dir path --
+#/home/umbrel/umbrel/umbrel.yaml
+
+
 # ── UmbrelOS — file paths ─────────────────────────────────────────────────────
 # App definition (sideload destination)
 # /home/umbrel/umbrel/app-stores/getumbrel-umbrel-apps-github-53f74447/strapi/
 #
 # App persistent data
 # /home/umbrel/umbrel/app-data/strapi/
+
+# 1. Remove strapi from umbrel.yaml (apps list + recentlyOpenedApps)
+sudo sed -i '/strapi/d' /home/umbrel/umbrel/umbrel.yaml
+
+# 2. Verify it's gone
+grep strapi /home/umbrel/umbrel/umbrel.yaml
+
+# 3. Remove app data directory
+sudo rm -rf /home/umbrel/umbrel/app-data/strapi/
+
+# 5. Remove app-stores entry (sideloaded source)
+sudo rm -rf /home/umbrel/umbrel/app-stores/*/strapi/
+sudo rm -rf /home/umbrel/umbrel/app-stores/strapi/ 2>/dev/null
+

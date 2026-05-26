@@ -8,7 +8,7 @@ export default {
       to: '/settings/email-settings',
       Component: async () => {
         const { Settings } = await import('./pages/EmailSettings');
-        return Settings;
+        return { default: Settings };
       },
       permissions: [],
     });
