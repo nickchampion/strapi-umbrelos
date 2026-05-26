@@ -6,6 +6,7 @@ services:
 
   # Expose Strapi directly since there's no proxy routing locally
   web:
+    image: ghcr.io/nickchampion/strapi-umbrelos:latest
     ports:
       - "1337:1337"
     environment:

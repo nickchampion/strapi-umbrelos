@@ -24,7 +24,8 @@ const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Plugin =>
 
   'email-settings': {
     enabled: true,
-    resolve: './src/plugins/email-settings',
+    // Point at the compiled dist/ — TypeScript copies package.json there via src/**/*.json include
+    resolve: './dist/src/plugins/email-settings',
   },
 });
 

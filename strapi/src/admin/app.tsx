@@ -7,7 +7,7 @@ export default {
       id: 'email-settings',
       to: '/settings/email-settings',
       Component: async () => {
-        const { Settings } = await import('./pages/Settings');
+        const { Settings } = await import('./pages/EmailSettings');
         return Settings;
       },
       permissions: [],

@@ -20,6 +20,14 @@ if [ ! -f /opt/app/src/admin/vite.config.ts ]; then
     chown -R node:node /opt/app/src/admin
 fi
 
+# Ensure email-settings plugin package.json exists — needed on upgrades
+if [ ! -f /opt/app/src/plugins/email-settings/package.json ]; then
+    mkdir -p /opt/app/src/plugins/email-settings
+    cp /opt/app-src-default/plugins/email-settings/package.json \
+       /opt/app/src/plugins/email-settings/package.json
+    chown -R node:node /opt/app/src/plugins/email-settings
+fi
+
 # Clear Vite / admin build cache so the panel rebuilds cleanly on every start.
 rm -rf /opt/app/.cache/*
 
