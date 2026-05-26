@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@strapi/plugin-users-permissions": "5.46.1",
+    "@strapi/provider-email-nodemailer": "5.46.1",
     "@strapi/strapi": "5.46.1",
     "pg": "^8.13.1",
     "react": "^18.0.0",
@@ -25,6 +26,7 @@
   },
   "devDependencies": {
     "@types/node": "^20",
+    "@types/nodemailer": "^6",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "typescript": "^5"

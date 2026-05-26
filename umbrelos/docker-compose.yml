@@ -40,6 +40,14 @@ services:
       DATABASE_SSL: "false"
       DATABASE_SCHEMA: public
 
+      # Email (SMTP) — configured via scripts/configure-smtp.sh, persisted in APP_DATA_DIR
+      SMTP_HOST: ${APP_STRAPI_SMTP_HOST}
+      SMTP_PORT: ${APP_STRAPI_SMTP_PORT}
+      SMTP_USERNAME: ${APP_STRAPI_SMTP_USERNAME}
+      SMTP_PASSWORD: ${APP_STRAPI_SMTP_PASSWORD}
+      SMTP_FROM: ${APP_STRAPI_SMTP_FROM}
+      SMTP_REPLY_TO: ${APP_STRAPI_SMTP_REPLY_TO}
+
       # Security secrets (derived deterministically from APP_SEED via exports.sh)
       APP_KEYS: ${APP_STRAPI_APP_KEYS}
       API_TOKEN_SALT: ${APP_STRAPI_API_TOKEN_SALT}
