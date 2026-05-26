@@ -20,11 +20,13 @@ if [ ! -f /opt/app/src/admin/vite.config.ts ]; then
     chown -R node:node /opt/app/src/admin
 fi
 
-# Ensure email-settings plugin package.json exists — needed on upgrades
-if [ ! -f /opt/app/src/plugins/email-settings/package.json ]; then
+# Ensure email-settings plugin source exists — tsc incremental mode deletes dist/
+# output files when their source is absent, so we must keep the src in sync.
+if [ ! -f /opt/app/src/plugins/email-settings/server/src/index.ts ]; then
+    echo "→ Copying email-settings plugin from defaults..."
     mkdir -p /opt/app/src/plugins/email-settings
-    cp /opt/app-src-default/plugins/email-settings/package.json \
-       /opt/app/src/plugins/email-settings/package.json
+    cp -rp /opt/app-src-default/plugins/email-settings/. \
+       /opt/app/src/plugins/email-settings/
     chown -R node:node /opt/app/src/plugins/email-settings
 fi
 

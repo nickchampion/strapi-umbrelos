@@ -2,7 +2,7 @@ manifestVersion: 1
 id: strapi
 category: developer
 name: Strapi
-version: "5.0.15"
+version: "5.0.16"
 tagline: The Open-Source Headless CMS for AI powered Websites and Apps
 description: >-
   Strapi is the leading open-source headless CMS, giving you full control
@@ -25,7 +25,6 @@ description: >-
 developer: Strapi Solutions SAS
 website: https://strapi.io
 submitter: Nick Champion
-submission: ""
 repo: https://github.com/strapi/strapi
 support: https://forum.strapi.io
 port: 1337
