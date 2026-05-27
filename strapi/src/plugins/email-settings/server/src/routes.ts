@@ -1,24 +1,20 @@
-export default {
-  admin: {
-    routes: [
-      {
-        method: 'GET',
-        path: '/settings',
-        handler: 'settings.find',
-        config: { policies: [] },
-      },
-      {
-        method: 'POST',
-        path: '/settings',
-        handler: 'settings.update',
-        config: { policies: [] },
-      },
-      {
-        method: 'POST',
-        path: '/test',
-        handler: 'settings.test',
-        config: { policies: [] },
-      },
-    ],
+export default [
+  {
+    method: 'GET',
+    path: '/settings',
+    handler: 'settings.find',
+    config: { policies: [] },
   },
-};
+  {
+    method: 'POST',
+    path: '/settings',
+    handler: 'settings.update',
+    config: { policies: [] },
+  },
+  {
+    method: 'POST',
+    path: '/test',
+    handler: 'settings.test',
+    config: { policies: [] },
+  },
+];

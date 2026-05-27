@@ -17,7 +17,16 @@ COMPOSE="docker compose -f umbrelos/docker-compose.yml -f docker-compose.dev.yml
 # Derive secrets from APP_SEED exactly as UmbrelOS does via exports.sh
 export APP_SEED="local-dev-seed-not-for-production"
 export APP_DATA_DIR="$DATA_DIR"
+export EXPORTS_APP_DIR="$DATA_DIR"
 export APP_DOMAIN="localhost"
+
+# Shim for the derive_entropy function that UmbrelOS app-script provides at runtime.
+# Uses HMAC-SHA256 with APP_SEED as the key, matching the UmbrelOS implementation.
+derive_entropy() {
+  echo -n "${1}" | openssl dgst -sha256 -hmac "${APP_SEED}" | awk '{print $2}'
+}
+export -f derive_entropy
+
 # shellcheck source=umbrelos/exports.sh
 source umbrelos/exports.sh
 

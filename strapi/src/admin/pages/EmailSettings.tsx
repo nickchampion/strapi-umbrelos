@@ -42,7 +42,7 @@ export const Settings = () => {
   const { toggleNotification } = useNotification();
 
   useEffect(() => {
-    get('/api/email-settings/settings')
+    get('/email-settings/settings')
       .then(({ data }: any) => {
         if (data?.data) {
           const { hasPassword: hp, ...rest } = data.data;
@@ -61,7 +61,7 @@ export const Settings = () => {
   const handleSave = async () => {
     setSaving(true);
     try {
-      const { data }: any = await post('/api/email-settings/settings', form);
+      const { data }: any = await post('/email-settings/settings', form);
       if (data?.data) {
         setHasPassword(data.data.hasPassword);
         setForm((prev) => ({ ...prev, password: '' }));
@@ -78,7 +78,7 @@ export const Settings = () => {
     if (!testEmail) return;
     setTesting(true);
     try {
-      const { data }: any = await post('/api/email-settings/test', { to: testEmail });
+      const { data }: any = await post('/email-settings/test', { to: testEmail });
       if (data?.data?.success) {
         toggleNotification({ type: 'success', message: `Test email sent to ${testEmail}.` });
       } else {
