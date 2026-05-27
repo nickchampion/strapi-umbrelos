@@ -12,6 +12,17 @@ export default {
       },
       permissions: [],
     });
+
+    app.addSettingsLink('global', {
+      intlLabel: { id: 'run-mode.nav.label', defaultMessage: 'Run Mode' },
+      id: 'run-mode',
+      to: '/settings/run-mode',
+      Component: async () => {
+        const { Settings } = await import('./pages/RunModeSettings');
+        return { default: Settings };
+      },
+      permissions: [],
+    });
   },
 
   bootstrap() {},

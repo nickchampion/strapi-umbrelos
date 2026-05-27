@@ -30,7 +30,31 @@ if [ ! -f /opt/app/src/plugins/email-settings/server/src/index.ts ]; then
     chown -R node:node /opt/app/src/plugins/email-settings
 fi
 
+if [ ! -f /opt/app/src/plugins/run-mode/server/src/index.ts ]; then
+    echo "→ Copying run-mode plugin from defaults..."
+    mkdir -p /opt/app/src/plugins/run-mode
+    cp -rp /opt/app-src-default/plugins/run-mode/. \
+       /opt/app/src/plugins/run-mode/
+    chown -R node:node /opt/app/src/plugins/run-mode
+fi
+
 # Clear Vite / admin build cache so the panel rebuilds cleanly on every start.
 rm -rf /opt/app/.cache/*
 
-exec su-exec node "$@"
+# Determine run mode from the persistent mode file written by the Run Mode plugin.
+# Default (no file) is development so users can create content types on first install.
+MODE_FILE="/opt/app/src/.strapi-run-mode"
+RUN_MODE="development"
+if [ -f "$MODE_FILE" ]; then
+    RUN_MODE=$(cat "$MODE_FILE" | tr -d '[:space:]')
+fi
+
+if [ "$RUN_MODE" = "production" ]; then
+    echo "→ Run mode: production (strapi start)"
+    export NODE_ENV=production
+    exec su-exec node npm run start
+else
+    echo "→ Run mode: development (strapi develop)"
+    export NODE_ENV=development
+    exec su-exec node npm run develop
+fi

@@ -1,0 +1,11 @@
+{
+  "name": "strapi-plugin-run-mode",
+  "version": "1.0.0",
+  "description": "Admin UI for switching between Strapi development and production run modes",
+  "main": "./server/src/index.js",
+  "strapi": {
+    "kind": "plugin",
+    "name": "run-mode",
+    "displayName": "Run Mode"
+  }
+}
