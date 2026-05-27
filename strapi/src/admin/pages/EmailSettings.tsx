@@ -38,7 +38,7 @@ export const Settings = () => {
   const [testEmail, setTestEmail] = useState('');
   const [testing, setTesting] = useState(false);
 
-  const { get, put, post } = useFetchClient();
+  const { get, post } = useFetchClient();
   const { toggleNotification } = useNotification();
 
   useEffect(() => {
@@ -61,7 +61,7 @@ export const Settings = () => {
   const handleSave = async () => {
     setSaving(true);
     try {
-      const { data }: any = await put('/email-settings/settings', form);
+      const { data }: any = await post('/email-settings/settings', form);
       if (data?.data) {
         setHasPassword(data.data.hasPassword);
         setForm((prev) => ({ ...prev, password: '' }));
@@ -110,7 +110,9 @@ export const Settings = () => {
         </Typography>
         <Box paddingTop={1}>
           <Typography variant="epsilon" textColor="neutral600">
-            Configure outbound email for password resets and notifications.
+            Configure outbound SMTP email for password resets and notifications.
+            Settings are saved persistently and applied at runtime — use this page,
+            not the built-in &quot;Email Plugin&quot; section which only shows static defaults.
           </Typography>
         </Box>
       </Box>

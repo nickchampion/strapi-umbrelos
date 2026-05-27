@@ -8,7 +8,7 @@ export default {
         config: { policies: [] },
       },
       {
-        method: 'PUT',
+        method: 'POST',
         path: '/settings',
         handler: 'settings.update',
         config: { policies: [] },
