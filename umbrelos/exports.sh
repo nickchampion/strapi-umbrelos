@@ -7,20 +7,14 @@
 _app_seed=$(derive_entropy "app-strapi-seed")
 
 export APP_STRAPI_PORT="1337"
-
 export APP_STRAPI_DB_PASSWORD="$(echo "${_app_seed}strapi-db" | sha256sum | head -c 32)"
 
 # APP_KEYS is a comma-separated list of session signing keys
 export APP_STRAPI_APP_KEYS="$(echo "${_app_seed}strapi-key1" | sha256sum | head -c 32),$(echo "${_app_seed}strapi-key2" | sha256sum | head -c 32)"
-
 export APP_STRAPI_API_TOKEN_SALT="$(echo "${_app_seed}strapi-api-token" | sha256sum | head -c 32)"
-
 export APP_STRAPI_ADMIN_JWT_SECRET="$(echo "${_app_seed}strapi-admin-jwt" | sha256sum | head -c 64)"
-
 export APP_STRAPI_JWT_SECRET="$(echo "${_app_seed}strapi-jwt" | sha256sum | head -c 64)"
-
 export APP_STRAPI_TRANSFER_TOKEN_SALT="$(echo "${_app_seed}strapi-transfer" | sha256sum | head -c 32)"
-
 export APP_STRAPI_ENCRYPTION_KEY="$(echo "${_app_seed}strapi-encryption" | sha256sum | head -c 32)"
 
 # SMTP settings — stored in persistent app data so they survive app updates.
