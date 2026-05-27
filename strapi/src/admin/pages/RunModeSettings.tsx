@@ -30,7 +30,7 @@ export const Settings = () => {
   const { toggleNotification } = useNotification();
 
   useEffect(() => {
-    get('/run-mode/mode')
+    get('/api/run-mode/mode')
       .then(({ data }: any) => {
         const mode: Mode = data?.data?.mode === 'production' ? 'production' : 'development';
         setCurrentMode(mode);
@@ -43,7 +43,7 @@ export const Settings = () => {
   const handleApply = async () => {
     setSwitching(true);
     try {
-      await post('/run-mode/mode', { data: { mode: selectedMode } });
+      await post('/api/run-mode/mode', { data: { mode: selectedMode } });
       setRestarting(true);
     } catch {
       toggleNotification({ type: 'warning', message: 'Failed to switch mode.' });
