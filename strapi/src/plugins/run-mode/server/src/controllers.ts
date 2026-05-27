@@ -36,8 +36,5 @@ export default ({ strapi }: { strapi: any }) => ({
     }
 
     ctx.body = { data: { mode, restarting: true } };
-
-    // Give the response time to flush before the process exits
-    setTimeout(() => process.exit(0), 500);
   },
 });

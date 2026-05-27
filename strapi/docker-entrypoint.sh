@@ -33,8 +33,9 @@ if [ -f "$MODE_FILE" ]; then
 fi
 
 if [ "$RUN_MODE" = "production" ]; then
-    echo "→ Run mode: production (strapi start)"
+    echo "→ Run mode: production (compiling TypeScript then strapi start)"
     export NODE_ENV=production
+    su-exec node ./node_modules/.bin/tsc --project tsconfig.json
     exec su-exec node npm run start
 else
     echo "→ Run mode: development (strapi develop)"

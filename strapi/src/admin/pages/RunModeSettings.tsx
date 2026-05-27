@@ -70,14 +70,9 @@ export const Settings = () => {
           style={{ maxWidth: 560 }}
         >
           <Flex direction="column" alignItems="flex-start" gap={4}>
-            <Loader>Restarting Strapi…</Loader>
+            <Loader>Run mode changed…</Loader>
             <Typography variant="omega" textColor="neutral600">
-              Strapi is restarting in{' '}
-              <strong>{selectedMode === 'production' ? 'production' : 'content editing'}</strong>{' '}
-              mode. This takes approximately 60 seconds.
-            </Typography>
-            <Typography variant="omega" textColor="neutral600">
-              Refresh this page once Strapi is back.
+              Restart Strapi from your UmbrelOS home screen
             </Typography>
           </Flex>
         </Box>
@@ -93,7 +88,7 @@ export const Settings = () => {
         </Typography>
         <Box paddingTop={1}>
           <Typography variant="epsilon" textColor="neutral600">
-            Switch between content editing and production modes. Changing mode restarts Strapi.
+            Switch between content editing and production modes. Changing mode requires a restart of Strapi.
           </Typography>
         </Box>
       </Box>
@@ -166,13 +161,8 @@ export const Settings = () => {
             loading={switching}
             disabled={selectedMode === currentMode}
           >
-            Apply &amp; Restart
+            Apply
           </Button>
-          {selectedMode !== currentMode && (
-            <Typography variant="omega" textColor="neutral500">
-              ⚠️ Strapi will restart — approx. 60 seconds of downtime
-            </Typography>
-          )}
         </Flex>
       </Box>
     </Box>
