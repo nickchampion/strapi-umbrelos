@@ -19,6 +19,22 @@ description: >-
   management, a redesigned admin interface, enhanced plugin architecture,
   and better performance across the board.
 
+  This package includes two custom built-in plugins. The Email plugin (Settings →
+  Email) lets you configure outbound SMTP so Strapi can send password-reset
+  and notification emails — enter your SMTP host, port, credentials, and
+  from address, then use the built-in test tool to verify delivery. The Run
+  Mode plugin (Settings → Run Mode) lets you switch between Development mode
+  — where the Content-Type Builder is available so you can create and modify
+  content types — and Production mode, which locks the schema and serves
+  your API with lower overhead. Start in Development, build your content
+  model, then switch to Production when you're ready to go live.
+
+  All app data — your PostgreSQL database, uploaded media, and content type
+  schemas — is stored in Umbrel's app-data directory and is automatically
+  included in UmbrelOS backups (Settings → Backups). To migrate or take a
+  manual snapshot, stop the app and copy the app-data/strapi/ directory;
+  restore by stopping the app, replacing the directory, and restarting.
+
   ⚠️ On first launch, visit the admin panel to create your administrator
   account. Your Strapi API will be available at http://umbrel.local:1337/api
   and the admin panel at http://umbrel.local:1337/admin.
