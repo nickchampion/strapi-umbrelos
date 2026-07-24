@@ -3,15 +3,28 @@ set -euo pipefail
 
 # Build and push a multi-arch image to GHCR, pin the digest in docker-compose.yml,
 # then create a git version tag.
-# Usage: ./scripts/release.sh <version>  (e.g. ./scripts/release.sh 5.46.1)
+#
+# Reads the current version from umbrelos/umbrel-app.yml, bumps the revision
+# (last) segment, writes it back, and releases that version. No arguments needed.
+# Usage: ./scripts/publish.sh
 #
 # One-time setup: echo "GITHUB_PAT" | docker login ghcr.io -u nickchampion --password-stdin
 
-VERSION="${1:-}"
-if [[ -z "$VERSION" ]]; then
-  echo "Usage: ./scripts/release.sh <version>  (e.g. 5.46.1)"
+APP_YML="umbrelos/umbrel-app.yml"
+
+CURRENT_VERSION=$(sed -n 's/^version:[[:space:]]*"\{0,1\}\([0-9.]*\)"\{0,1\}[[:space:]]*$/\1/p' "$APP_YML")
+if [[ -z "$CURRENT_VERSION" ]]; then
+  echo "Could not read version from $APP_YML"
   exit 1
 fi
+
+MAJOR="${CURRENT_VERSION%%.*}"
+REVISION="${CURRENT_VERSION##*.}"
+MINOR="${CURRENT_VERSION#*.}"; MINOR="${MINOR%.*}"
+VERSION="${MAJOR}.${MINOR}.$((REVISION + 1))"
+
+echo "→ Bumping version ${CURRENT_VERSION} → ${VERSION} in $APP_YML..."
+sed -i '' "s|^version:.*|version: \"${VERSION}\"|" "$APP_YML"
 
 IMAGE="ghcr.io/nickchampion/strapi-umbrelos"
 TAG="v${VERSION}"
@@ -34,8 +47,8 @@ sed -i '' \
   "s|image: ${IMAGE}.*|image: ${IMAGE}:${TAG}@${DIGEST}|" \
   umbrelos/docker-compose.yml
 
-echo "→ Committing docker-compose.yml digest update..."
-git add umbrelos/docker-compose.yml
+echo "→ Committing version bump and digest update..."
+git add .
 git commit -m "rel: ${TAG}"
 git push origin main
 

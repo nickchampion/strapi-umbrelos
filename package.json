@@ -5,7 +5,7 @@
     "dev": "./scripts/dev.sh",
     "dev:fresh": "./scripts/dev.sh --no-build",
     "dev:down": "./scripts/dev.sh down",
-    "release": "./scripts/release.sh",
+    "publish": "./scripts/publish.sh",
     "sideload": "./scripts/sideload.sh umbrel.netbird.cloud"
   }
 }

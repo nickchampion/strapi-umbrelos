@@ -3,9 +3,6 @@
 # ── Build stage ────────────────────────────────────────────────────────────────
 FROM node:22-alpine AS build
 
-# vips-dev is required by sharp (image processing)
-RUN apk update && apk add --no-cache vips-dev
-
 WORKDIR /opt/app
 
 COPY strapi/package.json ./
@@ -25,7 +22,7 @@ RUN npm prune --omit=dev
 FROM node:22-alpine AS runtime
 
 # su-exec for privilege dropping in entrypoint
-RUN apk update && apk upgrade --no-cache && apk add --no-cache vips-dev su-exec
+RUN apk update && apk upgrade --no-cache && apk add --no-cache su-exec
 
 ENV NODE_ENV=production
 
